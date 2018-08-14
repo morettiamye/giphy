@@ -1,19 +1,61 @@
+
+// Array of Topics
 var topics = ["sailor moon", "cardcaptor sakura", "kumamon", "japan", "pikachu"]
 
-//For Loop for making buttons     
-for (let index = 0; index < topics.length; index++) {
-    
-     // Creates Buttons
-    $("#buttons").append("<button>" + topics[index] +"</button>");
-    console.log("buttons created");
-};
+// Function to make buttons
+function makeButtons() {
+
+    // Delete prior to add
+    $("#topicButton").empty();
+
+    // Loop through  Topics and create buttons
+    for (var i = 0; i < topics.length; i++) {
+        var topicButton = $("<button>");
+
+        // Class
+        topicButton.addClass("topicButton");
+
+        // Add ATTR
+        topicButton.attr("data-name", topics[i]);
+        console.log(topics[i]);
+
+        // give the button the text of the index... 
+        topicButton.text(topics[i]);
+
+        // Add button to HTML...
+        $("#topicButton").append(topicButton);
+    }
+}
 
 
-// On Click Listener
-$("button").on("click", function() {
-    var topic = $(this).attr("data-topic");
+// Handle Events When button is Clicked
+// This function handles events when a button is clicked...
+$("#addTopic").on("click", function (event) {
 
-    // Giphy API 6wGN1rPGCzoddp4qnZotWSXYUNbpyNgk
+    //validate the user input....
+
+
+    //prevent default action with click...
+    event.preventDefault();
+
+    // grab the text from the input box...
+    var jpnTopics = $("#topicInput").val();
+
+    // The heroInput is then added to topics array...
+    topics.push(jpnTopics);
+
+    // call makeButtons which handles the topics array
+    makeButtons();
+});
+
+// Call the makeButton(); to display items currently in array...
+makeButtons();
+
+$(document).on("click", ".topicButton", function () {
+
+
+
+    // // Giphy API 6wGN1rPGCzoddp4qnZotWSXYUNbpyNgk
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=6wGN1rPGCzoddp4qnZotWSXYUNbpyNgk&limit=10";
 
     //AJAX Request
@@ -22,38 +64,12 @@ $("button").on("click", function() {
         method: "GET"
     })
 
-    .then(function(response) {
-        var results = response.data;
-        console.log(results);
+        .then(function (response) {
+            var results = response.data;
+            console.log(results);
 
-        // Looping over every result item
-        for (var i = 0; i < results.length; i++) {
 
-          // Only taking action if the photo has an appropriate rating
-          if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
-           
-            var gifDiv = $("#gifs");
 
-            // Storing the result item's rating
-            var rating = results[i].rating;
+        })
 
-            // Creating a paragraph tag with the result item's rating
-            var p = $("<p>").text("Rating: " + rating);
-
-            // Creating an image tag
-            var topicImage = $("<img>");
-
-            // Giving the image tag an src attribute of a proprty pulled off the
-            // result item
-            topicImage.attr("src", results[i].images.original_still.url);
-
-            // Appending the paragraph and topicImage we created to the "gifDiv" div we created
-            $("gifDiv").append(results);
-            $("gifDiv").append(p);
-            $("gifDiv").append(topicImage);
-
-            }
-        }
     })
-})
-
