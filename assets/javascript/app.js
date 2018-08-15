@@ -1,75 +1,25 @@
+// Array
+var topics = ["sailor moon", "cardcaptor sakura", "kumamon", "wtf japan", "doge", "maru"]
 
-// Array of Topics
-var topics = ["sailor moon", "cardcaptor sakura", "kumamon", "japan", "pikachu"]
-
-// Function to make buttons
-function makeButtons() {
-
-    // Delete prior to add
-    $("#topicButton").empty();
-
-    // Loop through  Topics and create buttons
-    for (var i = 0; i < topics.length; i++) {
-        var topicButton = $("<button>");
-
-        // Class
-        topicButton.addClass("topicButton");
-
-        // Add ATTR
-        topicButton.attr("data-name", topics[i]);
-        console.log(topics[i]);
-
-        // give the button the text of the index... 
-        topicButton.text(topics[i]);
-
-        // Add button to HTML...
-        $("#topicButton").append(topicButton);
-    }
+// For Loop to append buttons
+for (let index = 0; index < topics.length; index++) {
+    $("#buttons").append("<button>" + topics[index] + "</button>");
+    
 }
 
+// When user clicks button, grab 10 static gifs and place on page
 
-// Handle Events When button is Clicked
-// This function handles events when a button is clicked...
-$("#addTopic").on("click", function (event) {
+// Display rating of gif
 
-    //validate the user input....
+// When user clicks gif, gif should play
 
+// When user clicks again, gif should stop
 
-    //prevent default action with click...
-    event.preventDefault();
-
-    // grab the text from the input box...
-    var jpnTopics = $("#topicInput").val();
-
-    // The heroInput is then added to topics array...
-    topics.push(jpnTopics);
-
-    // call makeButtons which handles the topics array
-    makeButtons();
-});
-
-// Call the makeButton(); to display items currently in array...
-makeButtons();
-
-$(document).on("click", ".topicButton", function () {
+// Form to search / Adds topic to array, adds button
 
 
 
-    // // Giphy API 6wGN1rPGCzoddp4qnZotWSXYUNbpyNgk
+// Giphy API
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=6wGN1rPGCzoddp4qnZotWSXYUNbpyNgk&limit=10";
 
-    //AJAX Request
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    })
 
-        .then(function (response) {
-            var results = response.data;
-            console.log(results);
-
-
-
-        })
-
-    })
