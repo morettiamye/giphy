@@ -81,3 +81,6 @@ $(document).on("click", ".img", function () {
 $(document).on("click", ".topics-btn", displayGif);
 
 
+// Search Bar 
+// Add Button
+
