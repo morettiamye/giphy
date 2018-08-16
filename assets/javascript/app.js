@@ -5,7 +5,7 @@ var topics = ["sailor moon", "cardcaptor sakura", "kumamon", "wtf japan", "doge"
 function makeButtons() {
     for (let index = 0; index < topics.length; index++) {
         var button = $("<button>");
-        button.addClass("topics-btn btn-info rounded");
+        button.addClass("topics-btn btn-outline-dark rounded");
         button.attr("data-name", topics[index]);
         button.text(topics[index]);
         $("#buttons").append(button);
